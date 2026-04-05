@@ -1,56 +1,61 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Soon...</title>
-	</head>
-	<body>
-		<h1 style="color: #ff0000;">
-			Soon...
-		</h1>
+<html dir="ltr">
+<head>
+    <title>Datachip Calculator</title>
+</head>
+<body>
+    <h1 style="color: #ff0000;">Soon...</h1>
 
-		<div style="direction: rtl; font-family: sans-serif;">
-			<h3>Datachip Profit Calculator</h3>
-				<p>Sell Price: <input type="text" id="datachipSellPrice" placeholder="Enter Amount" oninput="updateTotal()">2500</p>
-				<p>Amount of Datachips: <input type="text" id="amount" placeholder="Enter Amount" oninput="updateTotal()">1</p>
-				<p>Price Per Iron: <input type="text" id="ironPrice" placeholder="Enter Amount" oninput="updateTotal()">500</p>
-				<p>Price Per Gold: <input type="text" id="goldPrice" placeholder="Enter Amount" oninput="updateTotal()">600</p>
-				<p>Price Per Chemical: <input type="text" id="chemicalPrice" placeholder="Enter Amount" oninput="updateTotal()">127</p>
-				<p>Price Per Glue: <input type="text" id="gluePrice" placeholder="Enter Amount" oninput="updateTotal()">18</p>
-				<p>Price Per Tape: <input type="text" id="tapePrice" placeholder="Enter Amount" oninput="updateTotal()">5</p>
-				<p>Price Per Scrap Metal: <input type="text" id="metalPrice" placeholder="Enter Amount" oninput="updateTotal()">13</p>
-			<hr>
-			<h2 id="totalSell">Total Sell: $????</h2>
-			<h2 id="totalSpend">Total Spend: $????</h2>
-			<h2 id="finalProfit">Total Profit: $????</h2>
-		</div>
-		<script>
-			function updateTotal() {
-				function getVal(id) {
-					let val = document.getElementById(id).value;
-					return parseFloat(val) || 0;
-				}
-				
-				const datachipSellPrice = getVal('datachipSellPrice');
-				const amount = getVal('amount');
-				
-				const ironPrice = getVal('ironPrice');
-				const goldPrice = getVal('goldPrice');
-			  	const chemicalPrice = getVal('chemicalPrice');
-			  	const gluePrice = getVal('gluePrice');
-			  	const tapePrice = getVal('tapePrice');
-			  	const chemicalPrice = getVal('chemicalPrice');
-			  	const metalPrice = getVal('metalPrice');
-			
-				const totalSell = datachipSellPrice*amount;
-				const totalSpend = (ironPrice*2+goldPrice+chemicalPrice+gluePrice+tapePrice+chemicalPrice+metalPrice*6)*amount;
-				const totalProfit = totalSell-totalSpend;
-				
-				document.getElementById('totalSell').innerText = "Total Sell: $" + totalSell.toLocaleString();
-				document.getElementById('totalSpend').innerText = "Total Spend: $" + totalSpend.toLocaleString();
-				document.getElementById('finalProfit').innerText = "Total Profit: $" + totalProfit.toLocaleString();
-			}
-			
-			updateTotal();
-		</script>
-	</body>
+    <div style="font-family: sans-serif;">
+        <h3>Datachip Profit Calculator</h3>
+        <p>Sell Price: <input type="text" id="datachipSellPrice" value="2500" oninput="updateTotal()"></p>
+        <p>Amount of Datachips: <input type="text" id="amount" value="1" oninput="updateTotal()"></p>
+		<br>
+        <p>Price Per Iron: <input type="text" id="ironPrice" value="500" oninput="updateTotal()"></p>
+        <p>Price Per Gold: <input type="text" id="goldPrice" value="600" oninput="updateTotal()"></p>
+        <p>Price Per Chemical: <input type="text" id="chemicalPrice" value="127" oninput="updateTotal()"></p>
+        <p>Price Per Glue: <input type="text" id="gluePrice" value="18" oninput="updateTotal()"></p>
+        <p>Price Per Tape: <input type="text" id="tapePrice" value="5" oninput="updateTotal()"></p>
+        <p>Price Per Scrap Metal: <input type="text" id="metalPrice" value="13" oninput="updateTotal()"></p>
+        
+        <hr>
+        <h2 id="totalSell">Total Sell: $0</h2>
+        <h2 id="totalSpend">Total Spend: $0</h2>
+        <h2 id="finalProfit">Total Profit: $0</h2>
+    </div>
+
+    <script>
+        function updateTotal() {
+            function getVal(id) {
+                let val = document.getElementById(id).value;
+                return parseFloat(val) || 0;
+            }
+            
+            const datachipSellPrice = getVal('datachipSellPrice');
+            const amount = getVal('amount');
+            
+            const ironPrice = getVal('ironPrice');
+            const goldPrice = getVal('goldPrice');
+            const chemicalPrice = getVal('chemicalPrice');
+            const gluePrice = getVal('gluePrice');
+            const tapePrice = getVal('tapePrice');
+            const metalPrice = getVal('metalPrice');
+
+            const totalSell = datachipSellPrice * amount;
+            
+            const costPerUnit = (ironPrice * 2) + goldPrice + chemicalPrice + gluePrice + tapePrice + metalPrice * 6;
+            const totalSpend = costPerUnit * amount;
+            
+            const totalProfit = totalSell - totalSpend;
+            
+            document.getElementById('totalSell').innerText = "Total Sell: $" + totalSell.toLocaleString();
+            document.getElementById('totalSpend').innerText = "Total Spend: $" + totalSpend.toLocaleString();
+            document.getElementById('finalProfit').innerText = "Total Profit: $" + totalProfit.toLocaleString();
+            
+            document.getElementById('finalProfit').style.color = totalProfit >= 0 ? "green" : "red";
+        }
+
+        updateTotal();
+    </script>
+</body>
 </html>
